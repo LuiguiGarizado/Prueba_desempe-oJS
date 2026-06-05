@@ -7,7 +7,7 @@ import {
   deleteReservation,
   getReservation 
 } from "@services/reservation.service";
-import { getSession } from "@/utils";
+import { getSession } from "@/utils"; 
 
 export const homeController = async () => {
   const container = document.querySelector("#reservationsContainer");
