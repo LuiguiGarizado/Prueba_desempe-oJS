@@ -14,13 +14,11 @@ export const homeController = async () => {
   const btnAction = document.querySelector("#btnActionPanel"); 
   const user = getSession();
 
-  // Elementos del Modal
   const modal = document.querySelector("#reservationModal");
   const modalForm = document.querySelector("#modalForm");
   const modalTitle = document.querySelector("#modalTitle");
   const closeModalBtn = document.querySelector("#closeModalBtn");
 
-  // Inputs del Modal
   const inputId = document.querySelector("#modalId");
   const inputWorkspace = document.querySelector("#modalWorkspace");
   const inputDate = document.querySelector("#modalDate");
@@ -28,7 +26,6 @@ export const homeController = async () => {
   const inputEnd = document.querySelector("#modalEnd");
   const inputReason = document.querySelector("#modalReason");
 
-  // Funciones de apertura/cierre del Modal
   const openModal = (title, data = null) => {
     modalTitle.textContent = title;
     if (data) {
@@ -56,7 +53,6 @@ export const homeController = async () => {
     container.innerHTML = `<div class="w-full text-center py-8 col-span-2"><p class="text-emerald-800">Cargando reservas ...</p></div>`;
     try {
       const reservations = await getReservations();
-      // Restricción: Admin ve todo, User sólo lo suyo
       const filteredReservations = user.role === "admin"
           ? reservations
           : reservations.filter((r) => String(r.userId) === String(user.id));
@@ -69,14 +65,12 @@ export const homeController = async () => {
     }
   };
 
-  // Acción del botón principal del Panel (Crear Reserva)
   if (btnAction) {
     btnAction.onclick = () => {
       openModal(user.role === "admin" ? "Crear Nueva Reserva (Admin)" : "Solicitar Nueva Reserva");
     };
   }
 
-  // Submit del Formulario Único del Modal (Crear o Editar)
   modalForm.onsubmit = async (e) => {
     e.preventDefault();
 
@@ -91,11 +85,8 @@ export const homeController = async () => {
 
     try {
       if (id) {
-        // MODO EDICIÓN
-        // Traemos el estado original para no sobreescribir datos críticos (como el creador original o status actual)
         const originalReservation = await getReservation(id);
 
-        // Restricción extra en cliente para usuarios normales
         if (user.role !== "admin" && originalReservation.status !== "pending") {
           alert("No puedes modificar una reserva que ya no esté pendiente.");
           closeModal();
@@ -103,14 +94,13 @@ export const homeController = async () => {
         }
 
         await updateReservation(id, {
-          ...originalReservation, // Mantenemos userId y status intactos si no los cambia admin
+          ...originalReservation, 
           ...payload,
-          status: user.role === "admin" ? originalReservation.status : "pending" // Si edita usuario vuelve a pending
+          status: user.role === "admin" ? originalReservation.status : "pending" 
         });
 
         alert("Reserva modificada con éxito.");
       } else {
-        // MODO CREACIÓN
         const newReservation = {
           userId: user.id,
           ...payload,
@@ -127,7 +117,6 @@ export const homeController = async () => {
     }
   };
 
-  // Manejador de eventos delegado para las tarjetas de reserva
   container.addEventListener("click", async (e) => {
     const target = e.target;
     const id = target.getAttribute("data-id");
@@ -160,10 +149,9 @@ export const homeController = async () => {
         }
       } 
       else if (action === "edit") {
-        // En lugar de prompts, obtenemos los datos de la reserva y abrimos el modal
         const currentReservation = await getReservation(id);
         openModal("Modificar Reserva", currentReservation);
-        return; // Detener flujo para esperar al submit del modal
+        return; 
       }
 
       renderReservations();

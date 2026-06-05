@@ -34,16 +34,6 @@
       "status": "approved"
     },
     {
-      "userId": "1",
-      "workspace": "Sala c",
-      "date": "2025/12/2026",
-      "startHour": "08:00 - 10:00",
-      "endHour": "11 :00",
-      "reason": "refinement meeting",
-      "status": "rejected",
-      "id": "kSF3bRJ8QjQ"
-    },
-    {
       "userId": "2",
       "workspace": "Salon 7",
       "date": "2026/12/05",
@@ -60,7 +50,7 @@
       "startHour": "11:00",
       "endHour": "12:00",
       "reason": "Refinement meeting",
-      "status": "pending",
+      "status": "approved",
       "id": "bjWkSp0HLXQ"
     }
   ],

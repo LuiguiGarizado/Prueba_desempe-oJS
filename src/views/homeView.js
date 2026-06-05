@@ -30,7 +30,7 @@ export default function homeView() {
                 <h2 class="font-bold text-xl mb-2 text-slate-800">Panel Administrator</h2>
                 <p class="text-slate-600">Puedes visualizar, aprobar, rechazar, editar o eliminar todas las reservas de la plataforma.</p>
                 <button id="btnActionPanel" class="mt-3 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition">
-                  + Crear Nueva Reserva (Admin)
+                  Hacer Una Reserva (Admin)
                 </button>
               </section>
             `
@@ -39,7 +39,7 @@ export default function homeView() {
                 <h2 class="font-bold text-xl mb-2 text-slate-800">Panel Usuario</h2>
                 <p class="text-slate-600">Puedes visualizar y gestionar únicamente tus reservas, siempre que no hayan sido aprobadas.</p>
                 <button id="btnActionPanel" class="mt-3 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition">
-                  + Solicitar Nueva Reserva
+                  Hacer una Reserva
                 </button>
               </section>
             `

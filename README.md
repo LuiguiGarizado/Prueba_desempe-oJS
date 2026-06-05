@@ -1,292 +1,67 @@
-# Guía para el README del Proyecto
-
-> **Importante:** Este documento está escrito en español como guía para los coders. El archivo `README.md` que entreguen en su proyecto debe estar redactado completamente en inglés.
-
----
-
-# Project Canvas
-
-## Nombre sugerido del proyecto
-
-**Workspace Reservation System SPA**
-
-## Descripción general
-
-Este proyecto consiste en desarrollar una Single Page Application (SPA) utilizando JavaScript, Vite, TailwindCSS y JSON Server.
-
-La aplicación simula un sistema de reservas de espacios de trabajo donde los usuarios pueden autenticarse, navegar por rutas protegidas y gestionar información consumida desde una API simulada.
-
-El objetivo principal es evaluar conocimientos relacionados con:
-
-- Arquitectura SPA
-- Autenticación
-- Manejo de roles
-- Protección de rutas
-- Persistencia de sesión
-- Consumo de APIs
-- Manipulación del DOM
-- Modularización del código
-- Buenas prácticas de desarrollo
-
----
-
-## Contexto del problema
-
-Una empresa dispone de diferentes espacios de trabajo compartidos:
-
-- Salas de reuniones
-- Oficinas privadas
-- Espacios de coworking
-- Auditorios
-
-Para evitar conflictos de horarios y mejorar la organización interna, se requiere una plataforma que permita administrar reservas de dichos espacios.
-
-La aplicación debe contemplar dos roles:
-
-### Administrador (admin)
-
-Puede:
-
-- Ver todas las reservas
-- Crear reservas
-- Editar reservas
-- Eliminar reservas
-- Aprobar o rechazar reservas
-- Gestionar espacios de trabajo
-- Acceder a módulos administrativos
-
-### Usuario (user)
-
-Puede:
-
-- Consultar espacios disponibles
-- Crear reservas
-- Ver únicamente sus reservas
-- Modificar reservas pendientes
-- Cancelar sus propias reservas
-
----
-
-## Tecnologías utilizadas
-
-- JavaScript ES6+
-- Vite
-- TailwindCSS
-- JSON Server
-- Concurrently
-- HTML5
-- CSS3
-
----
-
-## Estructura base entregada
-
-```txt
-src
-├── assets
-├── components
-│   └── Sidebar.js
-├── controllers
-│   └── login.controller.js
-├── router
-│   └── router.js
-├── views
-│   ├── loginView.js
-│   ├── homeView.js
-│   └── notFound.js
-├── utils.js
-├── main.js
-└── style.css
-```
-
----
-
-## Explicación de la arquitectura
-
-### Components
-
-Contiene componentes reutilizables de interfaz.
-
-Ejemplo:
-
-```txt
-components/
-└── Sidebar.js
-```
-
-El Sidebar puede reutilizarse en distintas vistas y centraliza la navegación principal del sistema.
-
-### Controllers
-
-Contienen la lógica de negocio y los eventos de la aplicación.
-
-Ejemplo:
-
-```txt
-controllers/
-└── login.controller.js
-```
-
-Responsabilidades:
-
-- Capturar eventos del formulario
-- Validar credenciales
-- Consumir la API
-- Gestionar el inicio de sesión
-- Redireccionar usuarios
-
-### Views
-
-Representan las pantallas de la aplicación.
-
-Actualmente:
-
-- Login
-- Home
-- Not Found (404)
-
-Cada vista retorna una plantilla HTML que es renderizada dinámicamente dentro del contenedor principal.
-
-### Router
-
-Administra la navegación interna de la SPA.
-
-Responsabilidades:
-
-- Renderizar vistas
-- Gestionar rutas
-- Proteger vistas privadas
-- Redireccionar usuarios
-- Mostrar páginas 404
-
-### Utils
-
-Contiene funciones auxiliares reutilizables.
-
-Actualmente:
-
-- Guardar sesión
-- Obtener sesión
-- Eliminar sesión
-- Validar autenticación
-
----
-
-## API simulada
-
-La aplicación utiliza JSON Server para simular una API REST.
-
-Ejemplo de usuario administrador:
-
-```json
-{
-  "id": 1,
-  "email": "admin@test.com",
-  "password": "123456",
-  "role": "admin"
-}
-```
-
-Ejemplo de usuario estándar:
-
-```json
-{
-  "id": 2,
-  "email": "user@test.com",
-  "password": "123456",
-  "role": "user"
-}
-```
-
----
-
-## Configuración del entorno
-
-Instalar dependencias:
-
+# Workspace Reservation System SPA
+
+
+## Description
+A simple single-page application for managing workspace reservations. It uses a mock backend with `json-server` and a frontend SPA structure to simulate user authentication, reservation creation, approval, and management workflows.
+
+## Technologies used
+- JavaScript
+- HTML
+- CSS
+- json-server
+- REST API simulation
+
+## Installation
+1. Clone the repository.
+2. Run `npm install` if `package.json` exists.
+3. Ensure `db.json` is present in the project root.
+
+## Running the project
+- Start the frontend with the available script, for example:
+  - `npm start`
+  - or `npm run dev`
+- If no frontend script is available, open the app directly in the browser and ensure the mock API is running.
+
+## Running json-server
+Run the mock backend with:
 ```bash
-npm install
+npx json-server --watch db.json --port 3001
 ```
+This exposes endpoints such as:
+- `GET /users`
+- `GET /reservations`
+- `POST /reservations`
+- `PUT /reservations/:id`
+- `PATCH /reservations/:id`
+- `DELETE /reservations/:id`
 
-Ejecutar proyecto:
+## Test users
+- admin@test.com / A123456 — role: admin
+- user@test.com / A123456 — role: user
+- user2@test.com / A123456 — role: user
 
-```bash
-npm run dev
-```
+## Project structure
+- `db.json` — mock database with users and reservations.
+- `README.md` — project documentation.
+- `src/main.js` — entry point for the frontend application.
+- `src/router/router.js` — client-side router and navigation.
+- `src/views/` — view templates for pages.
+- `src/controllers/` — business logic and event handling.
+- `src/components/` — reusable UI components.
+- `src/services/` — API communication services.
+- `src/api/http.js` — HTTP request helper.
+- `.gitignore` — files and folders excluded from version control.
 
-Este comando levanta simultáneamente:
+## Role permissions
+- `admin`: view all reservations, approve or reject requests, edit or delete any reservation, create reservations as an administrator.
+- `user`: create reservations, view only personal reservations, edit or cancel pending bookings.
 
-- Vite
-- JSON Server
+## Technical decisions
+- `json-server` is used to simulate a REST API without a real backend.
+- Frontend logic is separated into views, controllers, services, and components for easier maintenance.
+- Data is stored in `db.json` so the application can run locally with minimal setup.
+- The SPA uses client-side routing and session storage to manage authentication state.
 
-gracias al uso de Concurrently.
+## Author 
 
----
-
-## Scripts sugeridos
-
-```json
-{
-  "scripts": {
-    "client": "vite",
-    "server": "json-server --watch db.json --port 3000",
-    "dev": "concurrently \"npm run client\" \"npm run server\""
-  }
-}
-```
-
----
-
-## Credenciales de prueba
-
-Administrador:
-
-```txt
-admin@test.com
-123456
-```
-
-Usuario:
-
-```txt
-user@test.com
-123456
-```
-
----
-
-## Funcionalidades base incluidas
-
-- Login funcional
-- Consumo de API mediante JSON Server
-- Persistencia de sesión con LocalStorage
-- Logout
-- Router SPA
-- Protección básica de rutas
-- Sidebar reutilizable
-- Página 404 personalizada
-- Configuración de TailwindCSS
-- Configuración de Vite
-
----
-
-## Módulos pendientes para desarrollar
-
-Los coders deberán implementar:
-
-- CRUD de reservas
-- CRUD de espacios
-- Gestión de roles
-- Guards avanzados
-- Validaciones de permisos
-- Dashboard administrativo
-- Estadísticas
-- Filtros y búsquedas
-- Notificaciones
-- Reglas de negocio
-
----
-
-## Nota para los coders
-
-Aunque esta guía está escrita en español para facilitar la comprensión del proyecto, el archivo README.md entregado como evidencia debe estar redactado completamente en inglés.
+> Luigui Garizado

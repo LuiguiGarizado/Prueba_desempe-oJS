@@ -19,14 +19,14 @@ export default function loginView() {
           <input
             type="email"
             name="email"
-            placeholder="Correo"
+            placeholder="correo@test.com"
             class="border w-full p-2 rounded mb-3"
           >
 
           <input
             type="password"
             name="password"
-            placeholder="Contraseña"
+            placeholder="••••••••"
             class="border w-full p-2 rounded mb-4"
           >
 
